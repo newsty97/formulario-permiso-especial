@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario de Permisos Especiales</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @page {
+            size: A4;
+            margin: 0;
+        }
+
+        @media print {
+            html, body {
+                width: 210mm;
+                height: 297mm;
+                margin: 0 !important;
+                padding: 0 !important;
+                background: white !important;
+            }
+
+            .no-print {
+                display: none !important;
+            }
+
+            .hoja {
+                width: 210mm !important;
+                min-height: 297mm !important;
+                margin: 0 !important;
+                padding: 8mm !important;
+                box-shadow: none !important;
+                border: none !important;
+                max-width: 100% !important;
+            }
+
+            input, select,
+            input[type="text"],
+            input[type="date"],
+            input[type="time"] {
+                border: none !important;
+                border-bottom: none !important;
+                outline: none !important;
+                box-shadow: none !important;
+                background: transparent !important;
+                background-image: none !important;
+                -webkit-appearance: none;
+                -moz-appearance: none;
+                appearance: none;
+                padding: 0 !important;
+                color: black !important;
+                font-family: inherit;
+            }
+
+            .input-error,
+            .input-ok,
+            input.input-error,
+            input.input-ok {
+                border: none !important;
+                border-bottom: none !important;
+                outline: none !important;
+                box-shadow: none !important;
+                background: transparent !important;
+                background-image: none !important;
+                color: black !important;
+            }
+
+            .mensaje-validacion {
+                display: none !important;
+            }
+
+            table, th, td {
+                border-color: black !important;
+            }
+
+            th {
+                background-color: #f3f4f6 !important;
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+        }
+
+        input[type="text"], input[type="date"], input[type="time"] {
+            width: 100%;
+            background-color: transparent;
+            border: 1px solid transparent;
+            border-bottom: 1px dashed #9ca3af;
+            padding: 4px 6px;
+            outline: none;
+            transition: all 0.2s;
+        }
+
+        input[type="text"]:focus, input[type="date"]:focus, input[type="time"]:focus {
+            border-bottom: 1px solid #2563eb;
+            background-color: #eff6ff;
+        }
+
+        select {
+            width: 100%;
+            padding: 4px 6px;
+            border: 1px solid transparent;
+            border-bottom: 1px dashed #9ca3af;
+            outline: none;
+            background-color: transparent;
+        }
+
+        .readonly-cell {
+            background-color: #f9fafb;
+        }
+
+        .input-error {
+            border-bottom: 1px solid #dc2626 !important;
+            background-color: #fef2f2 !important;
+        }
+
+        .input-ok {
+            border-bottom: 1px solid #16a34a !important;
+            background-color: #f0fdf4 !important;
+        }
+
+        .mensaje-validacion {
+            font-size: 12px;
+            margin-top: 4px;
+        }
+
+        .mensaje-error {
+            color: #dc2626;
+        }
+
+        .mensaje-ok {
+            color: #16a34a;
+        }
+
+        .titulo-principal {
+            display: inline-flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 2px;
+            font-weight: 700;
+            text-align: center;
+            line-height: 1.25;
+        }
+
+        .titulo-linea-subrayada {
+            display: inline-block;
+            border-bottom: 2px solid #000;
+            padding-bottom: 2px;
+            white-space: nowrap;
+        }
+    </style>
+</head>
+<body class="bg-gray-200 text-gray-900 font-sans p-4 md:p-8">
+    <div class="max-w-4xl mx-auto mb-4 no-print flex flex-col md:flex-row justify-between items-start md:items-center gap-3 bg-white p-4 rounded-lg shadow">
+        <p class="text-sm text-gray-600">Edita los campos directamente y luego genera el PDF.</p>
+        <div class="flex gap-2 flex-wrap">
+            <button type="button" onclick="window.print()" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-6 rounded shadow flex items-center gap-2">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z" />
+                </svg>
+                Imprimir / Guardar como PDF
+            </button>
+        </div>
+    </div>
+
+    <div class="hoja bg-white mx-auto shadow-xl border border-gray-300">
+        <div class="text-center mb-8 px-8 pt-8">
+            <div class="titulo-principal text-xl">
+                <span class="titulo-linea-subrayada">FORMULARIO DE PERMISOS ESPECIALES</span>
+                <span class="titulo-linea-subrayada">DEL PERSONAL CON REGISTRO DE ASISTENCIA</span>
+            </div>
+        </div>
+
+        <div class="px-8">
+            <table class="w-full border-collapse border border-gray-400 mb-8 text-sm">
+                <thead>
+                    <tr>
+                        <th colspan="2" class="bg-gray-100 border border-gray-400 p-2 text-left font-bold uppercase">
+                            Tabla nº 1 - INDIVIDUALIZACIÓN DEL TRABAJADOR
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="border border-gray-400 p-2 w-1/3 font-semibold text-gray-800">Nombre del trabajador</td>
+                        <td class="border border-gray-400 p-2"><input type="text" value=""></td>
+                    </tr>
+                    <tr>
+                        <td class="border border-gray-400 p-2 font-semibold text-gray-800">RUT</td>
+                        <td class="border border-gray-400 p-2">
+                            <input type="text" id="rut" value="" placeholder="12.345.678-9" maxlength="12">
+                            <div id="rut-mensaje" class="mensaje-validacion"></div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="border border-gray-400 p-2 font-semibold text-gray-800">Cargo</td>
+                        <td class="border border-gray-400 p-2"><input type="text" value=""></td>
+                    </tr>
+                    <tr>
+                        <td class="border border-gray-400 p-2 font-semibold text-gray-800">Nombre Jefe Directo</td>
+                        <td class="border border-gray-400 p-2"><input type="text" value=""></td>
+                    </tr>
+                    <tr>
+                        <td class="border border-gray-400 p-2 font-semibold text-gray-800">Cargo Jefe Directo</td>
+                        <td class="border border-gray-400 p-2"><input type="text" value=""></td>
+                    </tr>
+                    <tr>
+                        <td class="border border-gray-400 p-2 font-semibold text-gray-800">Nombre Director de sede o área</td>
+                        <td class="border border-gray-400 p-2"><input type="text" value="" placeholder="Completar si corresponde..."></td>
+                    </tr>
+                    <tr>
+                        <td class="border border-gray-400 p-2 font-semibold text-gray-800">Cargo</td>
+                        <td class="border border-gray-400 p-2"><input type="text" value="" placeholder="Completar si corresponde..."></td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <table class="w-full border-collapse border border-gray-400 mb-2 text-sm">
+                <thead>
+                    <tr>
+                        <th colspan="2" class="bg-gray-100 border border-gray-400 p-2 text-left font-bold uppercase">
+                            Tabla nº 2 - ANTECEDENTES DEL PERMISO POR HORAS
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td colspan="2" class="border border-gray-400 p-2 text-xs italic text-gray-600">
+                            (Dejar vacío si el permiso es por días)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="border border-gray-400 p-2 w-1/2 font-semibold text-gray-800">Fecha del permiso</td>
+                        <td class="border border-gray-400 p-2"><input type="text" id="fecha-permiso" value="" placeholder="DD/MM/AAAA"></td>
+                    </tr>
+                    <tr>
+                        <td class="border border-gray-400 p-2 font-semibold text-gray-800">Hora de inicio</td>
+                        <td class="border border-gray-400 p-2"><input type="text" id="hora-inicio" value="" placeholder="HH:MM"></td>
+                    </tr>
+                    <tr>
+                        <td class="border border-gray-400 p-2 font-semibold text-gray-800">Hora de término</td>
+                        <td class="border border-gray-400 p-2"><input type="text" id="hora-termino" value="" placeholder="HH:MM"></td>
+                    </tr>
+                    <tr>
+                        <td class="border border-gray-400 p-2 font-semibold text-gray-800">Total horas de permiso</td>
+                        <td class="border border-gray-400 p-2 readonly-cell"><input type="text" id="total-horas-permiso" value="" placeholder="HH:MM" readonly></td>
+                    </tr>
+                    <tr>
+                        <td class="border border-gray-400 p-2 font-semibold text-gray-800">Permiso debe ser descontado (Indicar si o no)</td>
+                        <td class="border border-gray-400 p-2">
+                            <select id="permiso-descontado">
+                                <option value="NO">NO</option>
+                                <option value="SI">SI</option>
+                            </select>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <p class="text-xs text-justify mb-6 italic text-gray-700">
+                * Nota: Si la respuesta de la fila anterior es NO, entonces llenar la tabla nº 3 que indica fechas y horas de devolución del tiempo. Si la respuesta es SÍ, dejar la tabla nº 3 vacía.
+            </p>
+
+            <table class="w-full border-collapse border border-gray-400 mb-8 text-sm text-center">
+                <thead>
+                    <tr>
+                        <th colspan="6" class="bg-gray-100 border border-gray-400 p-2 text-left font-bold uppercase">
+                            Tabla nº 3 - FECHAS Y HORAS DE DEVOLUCIÓN DEL PERMISO
+                        </th>
+                    </tr>
+                    <tr class="bg-gray-50">
+                        <th class="border border-gray-400 p-2 w-12">Nº</th>
+                        <th class="border border-gray-400 p-2">FECHA</th>
+                        <th class="border border-gray-400 p-2">DESDE</th>
+                        <th class="border border-gray-400 p-2">HASTA</th>
+                        <th class="border border-gray-400 p-2">HORAS</th>
+                        <th class="border border-gray-400 p-2 no-print"><button type="button" onclick="agregarFila()" class="bg-green-600 hover:bg-green-700 text-white text-xs font-bold py-1 px-2 rounded w-full">Agregar</button></th>
+                    </tr>
+                </thead>
+                <tbody id="tbody-devolucion">
+                    <tr>
+                        <td class="border border-gray-400 p-2">1</td>
+                        <td class="border border-gray-400 p-2"><input type="text" class="text-center fecha-input" value="" placeholder="DD/MM/AAAA"></td>
+                        <td class="border border-gray-400 p-2"><input type="text" class="text-center desde-input" value="" placeholder="HH:MM"></td>
+                        <td class="border border-gray-400 p-2"><input type="text" class="text-center hasta-input" value="" placeholder="HH:MM"></td>
+                        <td class="border border-gray-400 p-2 readonly-cell"><input type="text" class="text-center horas-input" value="" readonly></td>
+                        <td class="border border-gray-400 p-2 no-print">
+                            <button type="button" class="bg-red-600 hover:bg-red-700 text-white text-xs font-bold py-1 px-2 rounded w-full" onclick="eliminarFila(this)">Eliminar</button>
+                        </td>
+                    </tr>
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td colspan="4" class="border border-gray-400 p-2 text-right font-bold uppercase bg-gray-50">
+                            TOTAL HORAS A DEVOLVER
+                        </td>
+                        <td class="border border-gray-400 p-2 font-bold bg-gray-50 readonly-cell">
+                            <input type="text" id="total-horas-devolucion" class="text-center font-bold" value="" readonly>
+                        </td>
+                        <td class="border border-gray-400 p-2 bg-gray-50 no-print"></td>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+    </div>
+
+    <script>
+        function horaValida(valor) {
+            return /^([01]?\d|2[0-3]):([0-5]\d)$/.test(valor);
+        }
+
+        function fechaValida(valor) {
+            return /^(0[1-9]|[12][0-9]|3[01])\/(0[1-9]|1[0-2])\/\d{4}$/.test(valor);
+        }
+
+        function convertirHoraAMinutos(hora) {
+            const [h, m] = hora.split(":").map(Number);
+            return h * 60 + m;
+        }
+
+        function minutosAHoraTexto(minutos) {
+            const horas = Math.floor(minutos / 60);
+            const mins = minutos % 60;
+            return `${horas}:${String(mins).padStart(2, "0")}`;
+        }
+
+        function calcularDiferenciaHoras(inicio, termino) {
+            if (!horaValida(inicio) || !horaValida(termino)) return "";
+            let minutosInicio = convertirHoraAMinutos(inicio);
+            let minutosTermino = convertirHoraAMinutos(termino);
+            let diferencia = minutosTermino - minutosInicio;
+            if (diferencia < 0) {
+                diferencia += 24 * 60;
+            }
+            return minutosAHoraTexto(diferencia);
+        }
+
+        function calcularHorasPermiso() {
+            const inicio = document.getElementById("hora-inicio").value.trim();
+            const termino = document.getElementById("hora-termino").value.trim();
+            const total = document.getElementById("total-horas-permiso");
+            total.value = calcularDiferenciaHoras(inicio, termino);
+        }
+
+        function calcularFila(tr) {
+            const fecha = tr.querySelector(".fecha-input").value.trim();
+            const desde = tr.querySelector(".desde-input").value.trim();
+            const hasta = tr.querySelector(".hasta-input").value.trim();
+            const horas = tr.querySelector(".horas-input");
+            if (fecha !== "" && fechaValida(fecha) && horaValida(desde) && horaValida(hasta)) {
+                horas.value = calcularDiferenciaHoras(desde, hasta);
+            } else {
+                horas.value = "";
+            }
+        }
+
+        function calcularTabla3() {
+            const filas = document.querySelectorAll("#tbody-devolucion tr");
+            let totalMinutos = 0;
+            filas.forEach(fila => {
+                calcularFila(fila);
+                const valor = fila.querySelector(".horas-input").value.trim();
+                if (valor && /^\d+:\d{2}$/.test(valor)) {
+                    totalMinutos += convertirHoraAMinutos(valor);
+                }
+            });
+            document.getElementById("total-horas-devolucion").value = totalMinutos > 0 ? minutosAHoraTexto(totalMinutos) : "";
+        }
+
+        function actualizarNumeracion() {
+            const filas = document.querySelectorAll("#tbody-devolucion tr");
+            filas.forEach((fila, index) => {
+                fila.children[0].textContent = index + 1;
+            });
+        }
+
+        function agregarEventosFila(tr) {
+            tr.querySelectorAll(".fecha-input, .desde-input, .hasta-input").forEach(input => {
+                input.addEventListener("input", calcularTabla3);
+            });
+        }
+
+        function agregarFila() {
+            const tbody = document.getElementById("tbody-devolucion");
+            const nuevaFila = document.createElement("tr");
+            nuevaFila.innerHTML = `
+                <td class="border border-gray-400 p-2"></td>
+                <td class="border border-gray-400 p-2"><input type="text" class="text-center fecha-input" value="" placeholder="DD/MM/AAAA"></td>
+                <td class="border border-gray-400 p-2"><input type="text" class="text-center desde-input" value="" placeholder="HH:MM"></td>
+                <td class="border border-gray-400 p-2"><input type="text" class="text-center hasta-input" value="" placeholder="HH:MM"></td>
+                <td class="border border-gray-400 p-2 readonly-cell"><input type="text" class="text-center horas-input" value="" readonly></td>
+                <td class="border border-gray-400 p-2 no-print"><button type="button" class="bg-red-600 hover:bg-red-700 text-white text-xs font-bold py-1 px-2 rounded w-full" onclick="eliminarFila(this)">Eliminar</button></td>
+            `;
+            tbody.appendChild(nuevaFila);
+            actualizarNumeracion();
+            agregarEventosFila(nuevaFila);
+        }
+
+        function eliminarFila(btn) {
+            const tbody = document.getElementById("tbody-devolucion");
+            if (tbody.querySelectorAll("tr").length === 1) {
+                tbody.querySelector(".fecha-input").value = "";
+                tbody.querySelector(".desde-input").value = "";
+                tbody.querySelector(".hasta-input").value = "";
+                tbody.querySelector(".horas-input").value = "";
+            } else {
+                btn.closest("tr").remove();
+            }
+            actualizarNumeracion();
+            calcularTabla3();
+        }
+
+        function limpiarRut(valor) {
+            return valor.replace(/[^0-9kK]/g, "").toUpperCase();
+        }
+
+        function formatearRut(valor) {
+            let limpio = limpiarRut(valor);
+            if (limpio.length <= 1) return limpio;
+            let cuerpo = limpio.slice(0, -1);
+            let dv = limpio.slice(-1);
+            cuerpo = cuerpo.replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+            return `${cuerpo}-${dv}`;
+        }
+
+        function validarRut(rutCompleto) {
+            const limpio = limpiarRut(rutCompleto);
+            if (limpio.length < 2) return false;
+            const cuerpo = limpio.slice(0, -1);
+            const dv = limpio.slice(-1);
+            if (!/^\d+$/.test(cuerpo)) return false;
+            let suma = 0;
+            let multiplicador = 2;
+            for (let i = cuerpo.length - 1; i >= 0; i--) {
+                suma += parseInt(cuerpo.charAt(i), 10) * multiplicador;
+                multiplicador = multiplicador === 7 ? 2 : multiplicador + 1;
+            }
+            const resto = 11 - (suma % 11);
+            let dvEsperado = "";
+            if (resto === 11) dvEsperado = "0";
+            else if (resto === 10) dvEsperado = "K";
+            else dvEsperado = String(resto);
+            return dv === dvEsperado;
+        }
+
+        function manejarRut() {
+            const input = document.getElementById("rut");
+            const mensaje = document.getElementById("rut-mensaje");
+            const formateado = formatearRut(input.value);
+            input.value = formateado;
+            input.classList.remove("input-error", "input-ok");
+            mensaje.className = "mensaje-validacion";
+            mensaje.textContent = "";
+            if (input.value.trim() === "") {
+                return;
+            }
+            if (validarRut(input.value)) {
+                input.classList.add("input-ok");
+                mensaje.classList.add("mensaje-ok");
+                mensaje.textContent = "RUT válido";
+            } else {
+                input.classList.add("input-error");
+                mensaje.classList.add("mensaje-error");
+                mensaje.textContent = "RUT inválido";
+            }
+        }
+
+        document.getElementById("hora-inicio").addEventListener("input", calcularHorasPermiso);
+        document.getElementById("hora-termino").addEventListener("input", calcularHorasPermiso);
+        document.getElementById("rut").addEventListener("input", manejarRut);
+        document.getElementById("rut").addEventListener("blur", manejarRut);
+
+        document.querySelectorAll("#tbody-devolucion tr").forEach(fila => {
+            agregarEventosFila(fila);
+        });
+
+        calcularHorasPermiso();
+        calcularTabla3();
+        actualizarNumeracion();
+    </script>
+</body>
+</html>
